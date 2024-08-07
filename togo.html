@@ -13,12 +13,9 @@
             background-color: pink;
             color: blue;
             text-align: center;
+            font-size: 500%;
             box-shadow: 0 0 0 2px;
-        }
-
-        #box {
-            font-family: cursive;
-
+            font-family: monospace;
         }
 
         .box {
@@ -32,7 +29,7 @@
 
 <body>
     <div style="text-align: center;">
-        <h1>Gewinn gegen den Computer!
+        <h1>Tippe hier, um Tic-Tac-Toe zu spielen!
             <h1 />
     </div>
     <div id="box">
@@ -54,8 +51,13 @@
     </div>
     <script>
         "use strict";
-        var won = false;
-        var currentPlayer = "O";
+        let won = false;
+        let clickCount = 0;
+        let currentPlayer = "O";
+        document.addEventListener('click', () => {
+            clickCount++;
+        });
+
         function set(box) {
             if (box.innerText != "" || won) return;
             box.innerText = currentPlayer;
@@ -63,7 +65,7 @@
             checkPlayboard();
         }
         function checkPlayboard() {
-            for (var i = 0; i <= 2; i++) {
+            for (let i = 0; i <= 2; i++) {
                 checkWinner(document.getElementById("0_" + i).innerText,
                     document.getElementById("1_" + i).innerText,
                     document.getElementById("2_" + i).innerText);
@@ -83,13 +85,19 @@
             if (first != "" && first == second && first == third) {
                 alert("Gewonnen!");
                 won = true;
-                restartGame();
+                location.reload();
+            }
+            else {
+                checkTie();
             }
         }
 
-        function restartGame() {
-            location.reload();
+        function checkTie() {
+            if (clickCount == 9) {
+                alert("Unentschieden!");
+            }
         }
+
     </script>
 </body>
 
